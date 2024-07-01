@@ -15,36 +15,46 @@ exports.getCharacter = async (req, res) => {
 // Get by ID
 
 exports.getCharacterById = async (req, res) => {
-   
-    const foundCharacter = await Character.findById(req.params.id)
+    try {
+        const foundCharacter = await Character.findById(req.params.id);
 
-    if (foundCharacter){
-        res.status(200).json(foundCharacter);
-    } else {
-        res.status(404).json({error: 'Id de personaje no encontrado.'});
+        if (foundCharacter) {
+            res.status(200).json(foundCharacter);
+        } else {
+            res.status(404).json({ error: 'Id de personaje no encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener personaje por ID - ' + error.message });
     }
 };
 
-
 // Get by Alias
 exports.getCharacterByAlias = async (req, res) => {
-    const foundCharacter = await Character.findOne ({alias: req.params.alias})
+    try {
+        const foundCharacter = await Character.findOne({ alias: req.params.alias });
 
-    if (foundCharacter) {
-        res.status(200).json(foundCharacter);
-    } else {
-        res.status(404).json({error: 'Alias de personaje no encontrado.'});
+        if (foundCharacter) {
+            res.status(200).json(foundCharacter);
+        } else {
+            res.status(404).json({ error: 'Alias de personaje no encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener personaje por alias - ' + error.message });
     }
 };
 
 // Get by Quirk
 exports.getCharacterByQuirk = async (req, res) => {
-    const foundCharacter = await Character.findOne ({quirk: req.params.quirk})
+    try {
+        const foundCharacter = await Character.findOne({ quirk: req.params.quirk });
 
-    if (foundCharacter) {
-        res.status(200).json(foundCharacter);
-    } else {
-        res.status(404).json({error: 'Quirk de personaje no encontrado.'});
+        if (foundCharacter) {
+            res.status(200).json(foundCharacter);
+        } else {
+            res.status(404).json({ error: 'Quirk de personaje no encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener personaje por quirk - ' + error.message });
     }
 };
 
